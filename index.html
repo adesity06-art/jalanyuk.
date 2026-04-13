@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>JalanYuk • Transportasi Online Pidie</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fefcf5;
+            color: #1f2937;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary-orange: #f97316;
+            --primary-dark: #ea580c;
+            --card-white: #ffffff;
+            --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+            --radius-xl: 28px;
+        }
+
+        h1, h2, h3, .logo, .nav-links a {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* navbar */
+        .navbar {
+            background: rgba(255, 250, 240, 0.96);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #ffedd5;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #f97316;
+        }
+
+        .logo i {
+            margin-right: 6px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #374151;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #f97316;
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: #f97316;
+        }
+
+        /* Hero section */
+        .hero {
+            max-width: 1280px;
+            margin: 2rem auto 0;
+            padding: 2rem 2rem 1rem;
+            text-align: center;
+        }
+
+        .vehicle-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: #f97316;
+            flex-wrap: wrap;
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #4b5563;
+            margin: 1rem auto;
+            max-width: 600px;
+        }
+
+        .hero-cta {
+            background: #f97316;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(249,115,22,0.3);
+        }
+
+        .hero-cta:hover {
+            background: #ea580c;
+            transform: translateY(-2px);
+        }
+
+        /* container */
+        .container {
+            max-width: 1280px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* booking card */
+        .booking-card {
+            background: var(--card-white);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid #ffedd5;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group label {
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: #374151;
+            font-size: 0.95rem;
+        }
+
+        .input-icon {
+            position: relative;
+        }
+
+        .input-icon i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #f97316;
+            font-size: 1rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 18px 14px 46px;
+            border: 1.5px solid #ffe4cc;
+            border-radius: 60px;
+            font-size: 1rem;
+            transition: 0.2s;
+            background: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        input:focus {
+            border-color: #f97316;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(249,115,22,0.1);
+        }
+
+        /* pilihan layanan - hanya motor dan mobil */
+        .service-simple {
+            display: flex;
+            gap: 1rem;
+            margin: 0.5rem 0 0.5rem;
+        }
+
+        .service-btn {
+            flex: 1;
+            background: #fff7ed;
+            border-radius: 60px;
+            padding: 14px 0;
+            text-align: center;
+            font-weight: 700;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1rem;
+        }
+
+        .service-btn i {
+            font-size: 1.2rem;
+        }
+
+        .service-btn.active {
+            background: #fef3c7;
+            border-color: #f97316;
+            color: #c2410c;
+        }
+
+        .price-card {
+            background: #fefaf5;
+            padding: 1rem;
+            border-radius: 40px;
+            text-align: center;
+            margin: 1.8rem 0;
+            border: 1px solid #ffedd5;
+        }
+
+        .price-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #f97316;
+        }
+
+        .btn-order {
+            width: 100%;
+            background: #f97316;
+            padding: 16px;
+            border: none;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-order:hover {
+            background: #ea580c;
+            transform: scale(0.98);
+        }
+
+        .status-box {
+            margin-top: 1.5rem;
+            background: #f3f4f6;
+            border-radius: 40px;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        /* layanan grid - hanya 2 card */
+        .services-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0;
+            justify-content: center;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.8rem;
+            flex: 1;
+            min-width: 200px;
+            max-width: 300px;
+            text-align: center;
+            transition: 0.2s;
+            border: 1px solid #ffedd5;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: #f97316;
+        }
+
+        .service-card i {
+            font-size: 2.5rem;
+            color: #f97316;
+            margin-bottom: 12px;
+        }
+
+        footer {
+            background: #1f2937;
+            color: #e5e7eb;
+            margin-top: 3rem;
+            padding: 2rem 1.5rem;
+            border-radius: 40px 40px 0 0;
+        }
+
+        .footer-inner {
+            max-width: 1280px;
+            margin: auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        @media (max-width: 780px) {
+            .navbar {
+                padding: 0.8rem 1.2rem;
+            }
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                background: white;
+                padding: 1rem;
+                border-radius: 28px;
+                margin-top: 1rem;
+            }
+            .nav-links.show {
+                display: flex;
+            }
+            .menu-icon {
+                display: block;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .service-simple {
+                flex-direction: column;
+            }
+            .vehicle-icons {
+                font-size: 2rem;
+            }
+            .services-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #1f2937;
+            color: #ffedd5;
+            padding: 12px 24px;
+            border-radius: 60px;
+            font-weight: 500;
+            z-index: 200;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar" id="navbar">
+    <div class="logo">
+        <i class="fas fa-road"></i> JalanYuk
+    </div>
+    <div class="menu-icon" id="menuIcon">
+        <i class="fas fa-bars"></i>
+    </div>
+    <div class="nav-links" id="navLinks">
+        <a href="#home">Beranda</a>
+        <a href="#booking">Pesan</a>
+        <a href="#services">Layanan</a>
+        <a href="#about">Tentang</a>
+    </div>
+</div>
+
+<!-- Hero Section -->
+<section id="home">
+    <div class="hero">
+        <div class="vehicle-icons">
+            <i class="fas fa-motorcycle"></i>
+            <i class="fas fa-car"></i>
+            <i class="fas fa-car-side"></i>
+        </div>
+        <h1>Mau Kemana?<br>JalanYuk Aja!</h1>
+        <p>Layanan transportasi online cepat, aman, dan hemat untuk masyarakat Pidie.<br>Yuk jalan, sampai tujuan!</p>
+        <button class="hero-cta" id="heroScrollBtn">Yuk Pesan Sekarang <i class="fas fa-arrow-right"></i></button>
+    </div>
+</section>
+
+<!-- Form Pemesanan -->
+<div class="container" id="booking">
+    <div class="booking-card">
+        <h2 style="margin-bottom: 0.25rem; text-align: center;"><i class="fas fa-pen-alt"></i> Pesan Kendaraan</h2>
+        <p style="margin-bottom: 1.5rem; text-align: center; color: #6b7280; font-size: 0.9rem;">Isi lokasi & pilih layanan</p>
+
+        <!-- Lokasi Penjemputan -->
+        <div class="form-group">
+            <label><i class="fas fa-circle-dot"></i> Lokasi Penjemputan</label>
+            <div class="input-icon">
+                <i class="fas fa-map-pin"></i>
+                <input type="text" id="pickup" placeholder="Cari lokasi penjemputan..." value="">
+            </div>
+        </div>
+
+        <!-- Lokasi Tujuan -->
+        <div class="form-group">
+            <label><i class="fas fa-flag-checkered"></i> Lokasi Tujuan</label>
+            <div class="input-icon">
+                <i class="fas fa-location-dot"></i>
+                <input type="text" id="destination" placeholder="Cari lokasi tujuan..." value="">
+            </div>
+        </div>
+
+        <!-- Pilihan Layanan (Motor & Mobil saja) -->
+        <div class="form-group">
+            <label><i class="fas fa-taxi"></i> Pilih Layanan</label>
+            <div class="service-simple" id="serviceGroup">
+                <div class="service-btn active" data-vehicle="motor">
+                    <i class="fas fa-motorcycle"></i> Motor
+                </div>
+                <div class="service-btn" data-vehicle="mobil">
+                    <i class="fas fa-car"></i> Mobil
+                </div>
+            </div>
+        </div>
+
+        <!-- Estimasi Harga -->
+        <div class="price-card">
+            <span>💰 Estimasi Harga</span>
+            <div class="price-value" id="estPrice">Rp 0</div>
+            <small>*dihitung per kilometer (Motor Rp2.000 | Mobil Rp5.000)</small>
+        </div>
+
+        <!-- Tombol Pesan -->
+        <button class="btn-order" id="orderNowBtn"><i class="fas fa-paper-plane"></i> Yuk! Pesan Sekarang</button>
+        
+        <!-- Status Pemesanan -->
+        <div id="orderStatus" class="status-box">
+            <i class="fas fa-car-side"></i> Siap memesan? Klik tombol di atas
+        </div>
+    </div>
+</div>
+
+<!-- Layanan Kami (hanya Motor & Mobil) -->
+<section id="services" class="container">
+    <h2 style="font-size: 1.8rem; text-align: center;">✨ Layanan Kami untuk Pidie ✨</h2>
+    <div class="services-grid">
+        <div class="service-card">
+            <i class="fas fa-motorcycle"></i>
+            <h3>Ride Motor</h3>
+            <p>Cepat & hemat untuk perjalanan harian. Cocok untuk kamu yang ingin praktis.</p>
+        </div>
+        <div class="service-card">
+            <i class="fas fa-car"></i>
+            <h3>Ride Mobil</h3>
+            <p>Nyaman untuk perjalanan keluarga atau rombongan. Lebih santai dan lega.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Tentang -->
+<section id="about" class="container">
+    <div style="background: white; border-radius: 28px; padding: 2rem; border: 1px solid #ffedd5;">
+        <h2><i class="fas fa-info-circle"></i> Tentang JalanYuk</h2>
+        <p style="margin-top: 1rem;">JalanYuk hadir untuk membantu masyarakat bepergian dengan mudah, nyaman, dan cepat. Dengan armada motor dan mobil, setiap perjalanan jadi lebih asik dan efisien.</p>
+        <p><i class="fas fa-map-marker-alt"></i> <strong>Lokasi operasional:</strong> Pidie, Aceh</p>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div>
+            <h3><i class="fas fa-car"></i> JalanYuk</h3>
+            <p>Transportasi online untuk masyarakat Pidie</p>
+        </div>
+        <div>
+            <h4>📍 Pidie, Aceh</h4>
+            <p><i class="fab fa-whatsapp"></i> +62 822 1234 5678<br>📧 hello@jalanyuk.id</p>
+        </div>
+        <div>
+            <h4>Ikuti kami</h4>
+            <p><i class="fab fa-instagram"></i> @jalanyukpidie<br><i class="fab fa-tiktok"></i> jalanyuk_aceh</p>
+        </div>
+    </div>
+    <div style="text-align: center; margin-top: 2rem; font-size: 0.8rem;">&copy; 2026 JalanYuk • Yuk Jalan Sekarang!</div>
+</footer>
+
+<script>
+    // Simulasi jarak berdasarkan input teks
+    function getDistance(pickup, destination) {
+        if (!pickup || !destination) return 5;
+        
+        let hashPickup = 0;
+        let hashDest = 0;
+        
+        for (let i = 0; i < pickup.length; i++) {
+            hashPickup += pickup.charCodeAt(i);
+        }
+        for (let i = 0; i < destination.length; i++) {
+            hashDest += destination.charCodeAt(i);
+        }
+        
+        let distance = Math.abs(hashPickup - hashDest) % 23 + 2;
+        return distance;
+    }
+
+    let selectedVehicle = 'motor';
+    const rateMotor = 2000;
+    const rateMobil = 5000;
+
+    const pickupInput = document.getElementById('pickup');
+    const destInput = document.getElementById('destination');
+    const priceSpan = document.getElementById('estPrice');
+    const serviceBtns = document.querySelectorAll('.service-btn');
+    const orderBtn = document.getElementById('orderNowBtn');
+    const statusDiv = document.getElementById('orderStatus');
+    const heroBtn = document.getElementById('heroScrollBtn');
+
+    function updateEstimate() {
+        let pickup = pickupInput.value.trim();
+        let dest = destInput.value.trim();
+        
+        if (!pickup || !dest) {
+            priceSpan.innerText = `Rp 0`;
+            return;
+        }
+        
+        const distance = getDistance(pickup, dest);
+        const rate = selectedVehicle === 'motor' ? rateMotor : rateMobil;
+        const total = distance * rate;
+        priceSpan.innerText = `Rp ${total.toLocaleString('id-ID')}`;
+        return { distance, total };
+    }
+
+    pickupInput.addEventListener('input', updateEstimate);
+    destInput.addEventListener('input', updateEstimate);
+
+    // Pilihan layanan
+    serviceBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            serviceBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedVehicle = btn.getAttribute('data-vehicle');
+            updateEstimate();
+        });
+    });
+
+    function showNotif(message) {
+        let notif = document.createElement('div');
+        notif.className = 'notification';
+        notif.innerHTML = `<i class="fas fa-bell"></i> ${message}`;
+        document.body.appendChild(notif);
+        setTimeout(() => {
+            notif.style.opacity = '0';
+            setTimeout(() => notif.remove(), 400);
+        }, 3200);
+    }
+
+    let orderTimeout;
+    function handleOrder() {
+        const pickup = pickupInput.value.trim();
+        const dest = destInput.value.trim();
+        
+        if (!pickup || !dest) {
+            statusDiv.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Isi dulu lokasi penjemputan & tujuan!`;
+            return;
+        }
+        
+        const distance = getDistance(pickup, dest);
+        const totalPrice = selectedVehicle === 'motor' ? distance * rateMotor : distance * rateMobil;
+        const vehicleName = selectedVehicle === 'motor' ? 'Motor 🛵' : 'Mobil 🚗';
+
+        statusDiv.innerHTML = `<i class="fas fa-spinner fa-pulse"></i> Lagi cari driver terdekat...`;
+        orderBtn.disabled = true;
+        orderBtn.style.opacity = '0.6';
+        
+        if (orderTimeout) clearTimeout(orderTimeout);
+        orderTimeout = setTimeout(() => {
+            statusDiv.innerHTML = `<i class="fas fa-check-circle" style="color:#f97316;"></i> Driver siap jemput kamu! 🚀<br>
+                                   📍 Jemput: ${pickup} → ${dest}<br>
+                                   🚗 ${vehicleName} | estimasi: Rp ${totalPrice.toLocaleString('id-ID')}`;
+            showNotif(`✅ Pesanan berhasil! Driver lagi OTW ke lokasi ${pickup}. Yuk jalan!`);
+            orderBtn.disabled = false;
+            orderBtn.style.opacity = '1';
+        }, 2000);
+    }
+
+    orderBtn.addEventListener('click', handleOrder);
+    heroBtn.addEventListener('click', () => {
+        document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Mobile menu toggle
+    const menuIcon = document.getElementById('menuIcon');
+    const navLinks = document.getElementById('navLinks');
+    menuIcon.addEventListener('click', () => navLinks.classList.toggle('show'));
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('show');
+            const target = link.getAttribute('href');
+            if (target && target !== '#') {
+                document.querySelector(target).scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    updateEstimate();
+</script>
+</body>
+</html>
